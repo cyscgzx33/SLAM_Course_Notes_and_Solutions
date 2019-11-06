@@ -9,10 +9,10 @@ function [p] = v2t(M)
 %          [sin(theta), cos(theta), y];
 %          [0,          0,          1] )
 
-p = zeros(3, 1)
+p = zeros(3, 1);
 
-p(1) = M(1, 3)
-p(2) = M(2, 3)
-p(3) = atan2( M(2, 1), M(1, 1) ) % theta = atan2( sin(theta), cos(theta) )
+p(1) = M(1, 3);
+p(2) = M(2, 3);
+p(3) = atan2( M(2, 1), M(1, 1) ); % theta = atan2( sin(theta), cos(theta) )
 
 end
