@@ -1,6 +1,13 @@
-# Exerices of Course
+# Homework Assignments of Course
 
-## Octave in Linux (Ubuntu16.04)
+## Assignment Sheet w/ Answers
+### All the Answers are from me myself...
+* Please don't hesitate to let me know if any of them *doesn't make sense* or simply seems to be *stupid*
+    * Put it as **Issues** or 
+    * contact me via **email** (shown in my [Homepage](https://github.com/cyscgzx33) )
+* Discussion in any aspect is highly appreciated!
+
+## Octave in Linux (Ubuntu 16.04)
 ### Useful Websites
 * Installation of [Flatpak](https://flatpak.org/setup/Ubuntu/)
 * How to run [Octave with GUI](https://fredfire1.wordpress.com/2015/03/07/install-and-start-octave-with-gui-in-ubuntu-ubuntu/)
