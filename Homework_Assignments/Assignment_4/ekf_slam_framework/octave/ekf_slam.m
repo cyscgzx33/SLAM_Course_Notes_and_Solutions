@@ -23,7 +23,7 @@ landmarks = read_world('../data/world.dat');
 % load landmarks;
 % Read sensor readings, i.e. odometry and range-bearing sensor
 data = read_data('../data/sensor_data.dat');
-%load data;
+% load data;
 
 INF = 1000;
 % Get the number of landmarks in the map
@@ -38,20 +38,20 @@ observedLandmarks = repmat(false,1,N);
 % The first 3 components of mu correspond to the pose of the robot,
 % and the landmark poses (xi, yi) are stacked in ascending id order.
 % sigma: (2N+3)x(2N+3) covariance matrix of the normal distribution
-mu = repmat([0.0], (2*N+3), 1);
-robSigma = zeros(3);
-robMapSigma = zeros(3,2*N);
-mapSigma = INF*eye(2*N);
-sigma = [[robSigma robMapSigma];[robMapSigma' mapSigma]];
+mu           =  repmat([0.0], (2*N+3), 1);
+robSigma     =  zeros(3);
+robMapSigma  =  zeros(3,2*N);
+mapSigma     =  INF*eye(2*N);
+sigma        =  [[robSigma robMapSigma];[robMapSigma' mapSigma]];
 
 % toogle the visualization type
-%showGui = true;  % show a window while the algorithm runs
+% showGui = true;  % show a window while the algorithm runs
 showGui = false; % plot to files instead
 
 % Perform filter update for each odometry-observation pair read from the
 % data file.
 for t = 1:size(data.timestep, 2)
-%for t = 1:80
+% for t = 1:80
 
     % Perform the prediction step of the EKF
     [mu, sigma] = prediction_step(mu, sigma, data.timestep(t).odometry);

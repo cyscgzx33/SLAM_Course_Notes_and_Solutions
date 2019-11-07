@@ -4,7 +4,7 @@
 ### All the Answers are from me myself...
 * Please don't hesitate to let me know if any of them *doesn't make sense* or simply seems to be *stupid*
     * Put it as **Issues** or 
-    * contact me via **email** (shown in my [Homepage](https://github.com/cyscgzx33) )
+    * contact me via **email** (shown in my [Homepage](https://github.com/cyscgzx33))
 * Discussion in any aspect is highly appreciated!
 
 ## Octave in Linux (Ubuntu 16.04)
