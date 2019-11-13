@@ -22,7 +22,7 @@ expectedZ = zeros(m * 2, 1);
 
 % Iterate over the measurements and compute the H matrix
 % (stacked Jacobian blocks of the measurement function)
-% H will be 2m x 2N+3
+% H will be [ (2*m) x (2N + 3) ]
 H = [];
 
 for i = 1:m
