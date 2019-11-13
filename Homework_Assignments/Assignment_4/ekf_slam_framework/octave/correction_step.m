@@ -17,8 +17,8 @@ m = size(z, 2);
 % Z: vectorized form of all measurements made in this time step: [range_1; bearing_1; range_2; bearing_2; ...; range_m; bearing_m]
 % ExpectedZ: vectorized form of all expected measurements in the same form.
 % They are initialized here and should be filled out in the for loop below
-Z = zeros(m*2, 1);
-expectedZ = zeros(m*2, 1);
+Z = zeros(m * 2, 1);
+expectedZ = zeros(m * 2, 1);
 
 % Iterate over the measurements and compute the H matrix
 % (stacked Jacobian blocks of the measurement function)
@@ -29,7 +29,7 @@ for i = 1:m
 	% Get the id of the landmark corresponding to the i-th observation
 	landmarkId = z(i).id;
 	% If the landmark is obeserved for the first time:
-	if(observedLandmarks(landmarkId)==false)
+	if( observedLandmarks(landmarkId) == false )
 		% TODO: Initialize its pose in mu based on the measurement and the current robot pose:
 		
 		% Indicate in the observedLandmarks vector that this landmark has been observed
@@ -44,7 +44,7 @@ for i = 1:m
 	% TODO: Compute the Jacobian Hi of the measurement function h for this observation
 	
 	% Augment H with the new Hi
-	H = [H;Hi];	
+	H = [H; Hi];	
 endfor
 
 % TODO: Construct the sensor noise matrix Q
