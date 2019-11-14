@@ -1,11 +1,14 @@
-function [mu, sigma, observedLandmarks] = correction_step(mu, sigma, z, observedLandmarks)
 % Updates the belief, i. e., mu and sigma after observing landmarks, according to the sensor model
+function [mu, sigma, observedLandmarks] = correction_step(mu, sigma, z, observedLandmarks)
+
 % The employed sensor model measures the range and bearing of a landmark
-% mu: 2N+3 x 1 vector representing the state mean.
+% mu: [ (2N + 3) x 1 ] vector representing the state mean.
+
 % The first 3 components of mu correspond to the current estimate of the robot pose [x; y; theta]
 % The current pose estimate of the landmark with id = j is: [mu(2*j+2); mu(2*j+3)]
-% sigma: 2N+3 x 2N+3 is the covariance matrix
+% sigma: [ (2N + 3) x (2N + 3) ] is the covariance matrix
 % z: struct array containing the landmark observations.
+
 % Each observation z(i) has an id z(i).id, a range z(i).range, and a bearing z(i).bearing
 % The vector observedLandmarks indicates which landmarks have been observed
 % at some point by the robot.
@@ -31,19 +34,30 @@ for i = 1:m
 	% If the landmark is obeserved for the first time:
 	if( observedLandmarks(landmarkId) == false )
 		% TODO: Initialize its pose in mu based on the measurement and the current robot pose:
-		
+
+		%% formula:
+		% mu_{j, x} = mu_{t, x} + r^i * cos( phi^i + mu_{t, theta} )
+		% mu_{j, x} = mu_{t, y} + r^i * sin( phi^i + mu_{t, theta} )
+		mu(3 + 2 * landmarkId - 1) = mu(1) + z(i).range * cos( z(i).bearing + mu(3) ); 
+		mu(3 + 2 * landmarkId)     = mu(2) + z(i).range * sin( z(i).bearing + mu(3) );
+
 		% Indicate in the observedLandmarks vector that this landmark has been observed
 		observedLandmarks(landmarkId) = true;
 	endif
 
 	% TODO: Add the landmark measurement to the Z vector
-	Z(i * 2 - 1) = ?;
-	Z(i * 2) = ?;
+	Z(i * 2 - 1) = z(i).range;
+	Z(i * 2)     = z(i).bearing;
 
 	% TODO: Use the current estimate of the landmark pose
 	% to compute the corresponding expected measurement in expectedZ:
-	expectedZ(i * 2 - 1) = ?;
-	expectedZ(i * 2) = ?;
+	delta_x = mu(3 + 2 * landmarkId - 1) - mu(1);
+	delta_y = mu(3 + 2 * landmarkId)     - mu(2);
+	delta   = [delta_x; delta_y];
+
+	% check the slides for formula:  Eq.(12) ~ Eq.(14) @ Page 43, Course 05: EKF
+	expectedZ(i * 2 - 1) = sqrt( delta' * delta );
+	expectedZ(i * 2)     = atan2(delta_y, delta_x) - mu(3);
 
 	% TODO: Compute the Jacobian Hi of the measurement function h for this observation
 	
