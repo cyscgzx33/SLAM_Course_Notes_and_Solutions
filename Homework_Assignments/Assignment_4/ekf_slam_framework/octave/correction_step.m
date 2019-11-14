@@ -37,9 +37,13 @@ for i = 1:m
 	endif
 
 	% TODO: Add the landmark measurement to the Z vector
-	
+	Z(i * 2 - 1) = ?;
+	Z(i * 2) = ?;
+
 	% TODO: Use the current estimate of the landmark pose
 	% to compute the corresponding expected measurement in expectedZ:
+	expectedZ(i * 2 - 1) = ?;
+	expectedZ(i * 2) = ?;
 
 	% TODO: Compute the Jacobian Hi of the measurement function h for this observation
 	
@@ -47,15 +51,22 @@ for i = 1:m
 	H = [H; Hi];	
 endfor
 
-% TODO: Construct the sensor noise matrix Q
+% TODO(done): Construct the sensor noise matrix Q
+% Q is a diagonal square matrix with diagonal elements equal to 0.01
+Q = eye(2 * m) * 0.01;
 
 % TODO: Compute the Kalman gain
+K = sigma * H' * inv(H * sigma * H' + Q);
 
 % TODO: Compute the difference between the expected and recorded measurements.
 % Remember to normalize the bearings after subtracting!
 % (hint: use the normalize_all_bearings function available in tools)
+z_diff = ? - ?; % z - h(mu)
+z_diff = normalize_all_bearings(z_diff);
 
 % TODO: Finish the correction step by computing the new mu and sigma.
 % Normalize theta in the robot pose.
+mu = mu + K * z_diff;
+sigma = (eye - K * H) * sigma;
 
 end
