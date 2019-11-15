@@ -5,7 +5,7 @@ function [mu, sigma, observedLandmarks] = correction_step(mu, sigma, z, observed
 % mu: [ (2N + 3) x 1 ] vector representing the state mean.
 
 % The first 3 components of mu correspond to the current estimate of the robot pose [x; y; theta]
-% The current pose estimate of the landmark with id = j is: [mu(2*j+2); mu(2*j+3)]
+% The current pose estimate of the landmark with id = j is: [ mu(2*j + 2); mu(2*j + 3) ]
 % sigma: [ (2N + 3) x (2N + 3) ] is the covariance matrix
 % z: struct array containing the landmark observations.
 
@@ -64,15 +64,15 @@ for i = 1:m
 	Hi = zeros(2, 2 * N + 3);
 	q = expectedZ(i * 2 - 1)^2;
 	% check the equations + comments @ Page 44, Course 05: EKF
-	Hi[1, 1]                   =  -sqrt(q) * delta_x;
-	Hi[1, 2]                   =  -sqrt(q) * delta_y;
-	Hi[1, 2 * landmarkId + 2]  =   sqrt(q) * delta_x;
-	Hi[1, 2 * landmarkId + 3]  =   sqrt(q) * delta_y;
-	Hi[2, 1]                   =   delta_y;
-	Hi[2, 2]                   =  -delta_x;
-	Hi[2, 3]                   =  -q;
-	Hi[2, 2 * landmarkId + 2]  =  -delta_y;
-	Hi[2, 2 * landmarkId + 3]  =   delta_x;
+	Hi(1, 1)                   =  -sqrt(q) * delta_x;
+	Hi(1, 2)                   =  -sqrt(q) * delta_y;
+	Hi(1, 2 * landmarkId + 2)  =   sqrt(q) * delta_x;
+	Hi(1, 2 * landmarkId + 3)  =   sqrt(q) * delta_y;
+	Hi(2, 1)                   =   delta_y;
+	Hi(2, 2)                   =  -delta_x;
+	Hi(2, 3)                   =  -q;
+	Hi(2, 2 * landmarkId + 2)  =  -delta_y;
+	Hi(2, 2 * landmarkId + 3)  =   delta_x;
 	% don't forget to divide q
 	Hi = 1/q * Hi;
 

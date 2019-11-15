@@ -27,7 +27,7 @@ data = read_data('../data/sensor_data.dat');
 
 INF = 1000;
 % Get the number of landmarks in the map
-N = size(landmarks,2);
+N = size(landmarks, 2);
 
 % observedLandmarks is a vector that keeps track of which landmarks have been observed so far.
 % observedLandmarks(i) will be true if the landmark with id = i has been observed at some point by the robot
