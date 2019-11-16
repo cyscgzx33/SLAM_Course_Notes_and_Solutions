@@ -16,7 +16,7 @@ function [mu, sigma, observedLandmarks] = correction_step(mu, sigma, z, observed
 
 % Number of measurements in this time step
 m = size(z, 2);
-N = size(sigma, 1); % added by Ethan
+N = (size(sigma, 1) - 3) / 2; % added by Ethan: 2 * N + 3 = size(sigma, 1) => N = (size(sigma, 1) - 3) / 2
 
 % Z: vectorized form of all measurements made in this time step: [range_1; bearing_1; range_2; bearing_2; ...; range_m; bearing_m]
 % ExpectedZ: vectorized form of all expected measurements in the same form.
@@ -34,7 +34,7 @@ for i = 1:m
 	landmarkId = z(i).id; % Note: equivalent to "j" in the slides 
 	% If the landmark is obeserved for the first time:
 	if( observedLandmarks(landmarkId) == false )
-		% TODO: Initialize its pose in mu based on the measurement and the current robot pose:
+		% TODO(done): Initialize its pose in mu based on the measurement and the current robot pose:
 
 		%% formula:
 		% mu_{j, x} = mu_{t, x} + r^i * cos( phi^i + mu_{t, theta} )
@@ -46,11 +46,11 @@ for i = 1:m
 		observedLandmarks(landmarkId) = true;
 	endif
 
-	% TODO: Add the landmark measurement to the Z vector
+	% TODO(done): Add the landmark measurement to the Z vector
 	Z(i * 2 - 1) = z(i).range;
 	Z(i * 2)     = z(i).bearing;
 
-	% TODO: Use the current estimate of the landmark pose
+	% TODO(done): Use the current estimate of the landmark pose
 	% to compute the corresponding expected measurement in expectedZ:
 	delta_x = mu(3 + 2 * landmarkId - 1) - mu(1);
 	delta_y = mu(3 + 2 * landmarkId)     - mu(2);
@@ -60,7 +60,7 @@ for i = 1:m
 	expectedZ(i * 2 - 1) = sqrt( delta' * delta );			 % sqrt(q)
 	expectedZ(i * 2)     = atan2(delta_y, delta_x) - mu(3);  
 
-	% TODO: Compute the Jacobian Hi of the measurement function h for this observation
+	% TODO(done): Compute the Jacobian Hi of the measurement function h for this observation
 	Hi = zeros(2, 2 * N + 3);
 	q = expectedZ(i * 2 - 1)^2;
 	% check the equations + comments @ Page 44, Course 05: EKF
@@ -84,16 +84,24 @@ endfor
 % Q is a diagonal square matrix with diagonal elements equal to 0.01
 Q = eye(2 * m) * 0.01;
 
-% TODO: Compute the Kalman gain
+
+% (Passed) Check the sizes of each matrix before calculation
+% size(sigma)
+% size(H)
+% size(H')
+% size(Q)
+
+% TODO(done): Compute the Kalman gain
+% Note: the sizes are: [(2N+3) x (2N+3)] * [(2N+3) x 2m] * { [2m x (2N+3)] * [(2N+3) x(2N+3)] * [(2N+3) x 2m] + [2m x 2m] }
 K = sigma * H' * inv(H * sigma * H' + Q);
 
-% TODO: Compute the difference between the expected and recorded measurements.
+% TODO(done): Compute the difference between the expected and recorded measurements.
 % Remember to normalize the bearings after subtracting!
 % (hint: use the normalize_all_bearings function available in tools)
 z_diff = Z - expectedZ; % z - h(mu)
 z_diff = normalize_all_bearings(z_diff);
 
-% TODO: Finish the correction step by computing the new mu and sigma.
+% TODO(done): Finish the correction step by computing the new mu and sigma.
 % Normalize theta in the robot pose.
 mu = mu + K * z_diff;
 sigma = (eye - K * H) * sigma;
