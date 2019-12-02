@@ -20,7 +20,7 @@ G_partial_x(1, 3) = -u.t * sin( mu_3_prior + u.r1 );
 G_partial_x(2, 3) =  u.t * cos( mu_3_prior + u.r1 );
 
 % TODO(done): Construct the full Jacobian G
-G = zeros( size(sigma) );
+G = eye( size(sigma, 1) ); 
 G(1:3, 1:3) = eye(3) + G_partial_x;
 
 % Motion noise

@@ -93,6 +93,7 @@ Q = eye(2 * m) * 0.01;
 
 % TODO(done): Compute the Kalman gain
 % Note: the sizes are: [(2N+3) x (2N+3)] * [(2N+3) x 2m] * { [2m x (2N+3)] * [(2N+3) x(2N+3)] * [(2N+3) x 2m] + [2m x 2m] }
+% Size of K: [(2N+3) x 2m]
 K = sigma * H' * inv(H * sigma * H' + Q);
 
 % TODO(done): Compute the difference between the expected and recorded measurements.
@@ -104,6 +105,6 @@ z_diff = normalize_all_bearings(z_diff);
 % TODO(done): Finish the correction step by computing the new mu and sigma.
 % Normalize theta in the robot pose.
 mu = mu + K * z_diff;
-sigma = (eye - K * H) * sigma;
+sigma = (eye(2 * N + 3) - K * H) * sigma;
 
 end
