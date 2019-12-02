@@ -17,7 +17,7 @@ helper_matrix = sqrtm( (n + lambda) * sigma );
 
 for i = 1 : n
     sigma_points(:, 1 + i)     =  mu + helper_matrix(:, i);
-    sigma_points(:, 1 + i + n) =  mu - helper_matrix(:, i + n);
+    sigma_points(:, 1 + i + n) =  mu - helper_matrix(:, i);
 endfor
 
 % TODO(done): compute weight vectors w_m and w_c

@@ -6,7 +6,7 @@ function [mu, sigma] = recover_gaussian(sigma_points, w_m, w_c)
 % where n is the dimensionality of the distribution.
 
 % Try to vectorize your operations as much as possible
-n = length(sigma_points, 1);
+n = size(sigma_points, 1);
 
 % TODO(done): compute mu
 mu = zeros(n, 1);
