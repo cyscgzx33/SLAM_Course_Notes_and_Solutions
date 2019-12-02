@@ -42,7 +42,7 @@ sigma_points_trans = transform(sigma_points);
 % Plot transformed sigma points with corresponding mu and sigma
 h2 = plot(mu_trans(1), mu_trans(2), 'bo', 'markersize', 12, 'linewidth', 3)
 % fixed: a proper way to demonstrate legend
-legend( [h1 h2], 'original distribution', 'original distribution','transformed distribution' )
+legend( [h1, h2], 'original distribution', 'transformed distribution' )
 drawprobellipse(mu_trans, sigma_trans, 0.9, 'b');
 plot(sigma_points_trans(1, :), sigma_points_trans(2, :), 'kx', 'markersize', 10, 'linewidth', 3)
 
@@ -55,4 +55,4 @@ y_max = max(mu(2), mu_trans(2));
 axis( [ (x_min - 3) (x_max + 3) (y_min - 3) (y_max + 3) ], "equal" )
 
 % Print and save plot
-print('../plots/unscented.png', '-dpng')
+print('../plots/unscented_nonlinear_trans_test_3.png', '-dpng')

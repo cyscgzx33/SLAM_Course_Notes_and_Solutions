@@ -6,10 +6,12 @@ function [points] = transform(points)
 
 
 %%%%%
+%{
 % Function 1 (linear)
 % Applies a translation to [x; y]
 points(1,:) = points(1,:) + 1;
 points(2,:) = points(2,:) + 2;
+%}
 %%%%%
 
 %%%%%
@@ -25,9 +27,9 @@ points = [r;theta];
 %%%%%
 
 %%%%%
-%{
+%
 % Function 3 (nonlinear)
 points(1,:) = points(1,:).*cos(points(1,:)).*sin(points(1,:));
 points(2,:) = points(2,:).*cos(points(2,:)).*sin(points(2,:));
-%}
+%
 %%%%%
