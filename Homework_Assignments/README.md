@@ -17,7 +17,7 @@
     * after installation, it is important to **`load`** such pkg before using it
 * Run Octave within Flatpak framework
     * w/ GUI: `flatpak run --arch=x86_64 org.octave.Octave --gui`
-    * w/o GUI: `flatpak run org.octave.Octave
+    * w/o GUI: `flatpak run org.octave.Octave`
 * Run Octave standalone
     * w/ GUI: `octave --force-gui`
 ### Known Issues
